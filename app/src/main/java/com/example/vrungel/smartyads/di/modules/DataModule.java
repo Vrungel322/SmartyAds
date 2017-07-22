@@ -5,7 +5,10 @@ import android.content.Context;
 import com.example.vrungel.smartyads.data.DataManager;
 import dagger.Module;
 import dagger.Provides;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import javax.inject.Singleton;
+
 
 /**
  * Created by Vrungel on 26.01.2017.
@@ -13,8 +16,13 @@ import javax.inject.Singleton;
 
 @Module public class DataModule {
 
-  @Provides @Singleton DataManager provideDataManager() {
-    return new DataManager();
+  @Provides @Singleton Realm provideRealm(Context context){
+    Realm.init(context);
+    return Realm.getDefaultInstance();
+  }
+
+  @Provides @Singleton DataManager provideDataManager(Realm realm) {
+    return new DataManager(realm);
   }
 
 }

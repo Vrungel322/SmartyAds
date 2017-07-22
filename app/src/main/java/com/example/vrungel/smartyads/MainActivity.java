@@ -12,4 +12,9 @@ public class MainActivity extends BaseActivity implements IMainActivityView {
     setContentView(R.layout.activity_main);
     super.onCreate(savedInstanceState);
   }
+
+  @Override protected void onStop() {
+    mainActivityPresenter.destroyRealm();
+    super.onStop();
+  }
 }

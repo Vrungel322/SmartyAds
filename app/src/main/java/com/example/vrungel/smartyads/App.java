@@ -1,8 +1,6 @@
 package com.example.vrungel.smartyads;
 
 import android.app.Application;
-import android.content.Context;
-import android.content.res.Configuration;
 import com.example.vrungel.smartyads.di.components.AppComponent;
 import com.example.vrungel.smartyads.di.components.DaggerAppComponent;
 import com.example.vrungel.smartyads.di.modules.AppModule;
