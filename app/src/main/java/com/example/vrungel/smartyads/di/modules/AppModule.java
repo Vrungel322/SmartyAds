@@ -2,6 +2,7 @@ package com.example.vrungel.smartyads.di.modules;
 
 import android.app.Application;
 import android.content.Context;
+import com.example.vrungel.smartyads.base.Navigator;
 import com.example.vrungel.smartyads.utils.RxBus;
 import dagger.Module;
 import dagger.Provides;
@@ -25,6 +26,10 @@ import javax.inject.Singleton;
 
   @Provides @Singleton RxBus provideRxBus() {
     return new RxBus();
+  }
+
+  @Provides @Singleton Navigator provideNavigator() {
+    return new Navigator();
   }
 
 }
