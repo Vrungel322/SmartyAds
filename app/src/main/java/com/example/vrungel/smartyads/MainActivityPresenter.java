@@ -20,7 +20,17 @@ import timber.log.Timber;
   }
 
   private void setUpUi() {
-    Subscription subscription = mDataManager.getWithLimitOffset(UserModel.class,30,20)
+    getViewState().setUpUi();
+    Subscription subscription = mDataManager.getWithLimitOffset(UserModel.class,0,15)
+        //.compose(ThreadSchedulers.applySchedulers())
+        .subscribe(userModels -> {
+          getViewState().fillRV(userModels);
+        });
+    addToUnsubscription(subscription);
+  }
+
+  public void loadOneMorePage(int offset, int limit){
+    Subscription subscription = mDataManager.getWithLimitOffset(UserModel.class,offset,limit)
         //.compose(ThreadSchedulers.applySchedulers())
         .subscribe(userModels -> {
           getViewState().fillRV(userModels);

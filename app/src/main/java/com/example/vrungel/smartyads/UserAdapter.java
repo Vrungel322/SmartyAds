@@ -20,7 +20,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserAdapterVie
   private ArrayList<UserModel> mUserModels = new ArrayList<>();
 
   public void addListUserModels(List<UserModel> goodsEntities) {
-    mUserModels.clear();
+    //mUserModels.clear();
     mUserModels.addAll(goodsEntities);
     notifyDataSetChanged();
   }

@@ -14,4 +14,6 @@ import java.util.List;
     extends MvpView {
 
   void fillRV(List<UserModel> userModels);
+
+  void setUpUi();
 }
