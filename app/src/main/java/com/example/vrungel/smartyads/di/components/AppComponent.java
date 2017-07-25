@@ -1,6 +1,5 @@
 package com.example.vrungel.smartyads.di.components;
 
-
 import com.example.vrungel.smartyads.MainActivityPresenter;
 import com.example.vrungel.smartyads.base.BaseActivity;
 import com.example.vrungel.smartyads.base.BaseFragment;
@@ -17,5 +16,4 @@ import javax.inject.Singleton;
   void inject(BaseFragment baseFragment);
 
   void inject(MainActivityPresenter mainActivityPresenter);
-
 }

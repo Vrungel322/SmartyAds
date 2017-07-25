@@ -20,21 +20,19 @@ public class DataManager {
 
   /**
    * Create Dummy data
-   * */
+   */
   public void fillRealmDB() {
     for (int i = 0; i < 1000; i++) {
       mRealm.beginTransaction();
       UserModel userModel =
-          mRealm.createObject(UserModel.class, i);
-      userModel.setName("Name_" + i);
-      userModel.setSurname("Surname_" + i);
+          mRealm.copyToRealmOrUpdate(new UserModel(i, "Name_" + i, "Surname_" + i));
       mRealm.commitTransaction();
     }
   }
 
   /**
    * Save rx style
-   * */
+   */
   public <T extends RealmObject> Observable<T> save(T object, Class<T> clazz) {
     Realm realm = mRealm;
 
@@ -51,29 +49,32 @@ public class DataManager {
     return Observable.just(object)
         .flatMap(t -> Observable.just(t)
             .doOnSubscribe(realm::beginTransaction)
-            .doOnUnsubscribe(() -> {
-              realm.commitTransaction();
-              realm.close();
-            })
-            .doOnNext(realm::copyToRealm)
-        );
+            .doOnUnsubscribe(realm::commitTransaction)
+            .doOnNext(realm::copyToRealm));
   }
 
   /**
    * Gat all items in db rx style
-   * */
-  public <T extends RealmObject> Observable<List<T>> getAll (Class<T> clazz) {
+   */
+  public <T extends RealmObject> Observable<List<T>> getAll(Class<T> clazz) {
     Realm realm = mRealm;
 
     return Observable.just(clazz)
-        .flatMap(t-> Observable.just(t)
+        .flatMap(t -> Observable.just(t)
             .doOnSubscribe(realm::beginTransaction)
-            .doOnUnsubscribe(() -> {
-              realm.commitTransaction();
-              realm.close();
-            })
-            .map(type -> realm.where(type).findAll())
-        );
+            .doOnUnsubscribe(realm::commitTransaction)
+            .map(type -> realm.where(type).findAll()));
+  }
+
+  public <T extends RealmObject> Observable<List<T>> getWithLimitOffset(Class<T> clazz, int offset,
+      int limit) {
+    Realm realm = mRealm;
+
+    return Observable.just(clazz)
+        .flatMap(t -> Observable.just(t)
+            .doOnSubscribe(realm::beginTransaction)
+            .doOnUnsubscribe(realm::commitTransaction)
+            .map(type -> realm.where(type).between("id", offset, offset + limit).findAllAsync()));
   }
 
   public void clearRealm() {

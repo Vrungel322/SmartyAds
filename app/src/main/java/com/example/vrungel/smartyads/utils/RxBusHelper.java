@@ -6,5 +6,4 @@ package com.example.vrungel.smartyads.utils;
 
 public final class RxBusHelper {
 
-
 }

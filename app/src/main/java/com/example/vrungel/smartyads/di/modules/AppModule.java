@@ -31,5 +31,4 @@ import javax.inject.Singleton;
   @Provides @Singleton Navigator provideNavigator() {
     return new Navigator();
   }
-
 }

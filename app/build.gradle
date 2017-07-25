@@ -74,4 +74,5 @@ dependencies {
 
   //Realm
 //  compile 'io.realm:realm-android:0.87.4'
+  compile 'io.realm:android-adapters:2.1.0'
 }

@@ -15,7 +15,17 @@ import timber.log.Timber;
   @Override protected void onFirstViewAttach() {
     super.onFirstViewAttach();
     mDataManager.fillRealmDB();
-    checkItemsInDB();
+    //checkItemsInDB();
+    setUpUi();
+  }
+
+  private void setUpUi() {
+    Subscription subscription = mDataManager.getWithLimitOffset(UserModel.class,30,20)
+        //.compose(ThreadSchedulers.applySchedulers())
+        .subscribe(userModels -> {
+          getViewState().fillRV(userModels);
+        });
+    addToUnsubscription(subscription);
   }
 
   private void checkItemsInDB() {

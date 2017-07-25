@@ -35,5 +35,4 @@ public abstract class BasePresenter<V extends MvpView> extends MvpPresenter<V> {
   }
 
   protected abstract void inject();
-
 }
